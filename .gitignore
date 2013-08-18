@@ -21,7 +21,7 @@ lib-cov
 *.pid
 *.gz
 aws-credentials.config
-
+aws-config.json
 pids
 logs
 results
