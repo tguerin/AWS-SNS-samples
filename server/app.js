@@ -4,14 +4,13 @@
 
 var express = require('express')
     , routes = require('./routes')
-    , user = require('./routes/user')
+    , registration = require('./routes/registration')
     , http = require('http')
-    , path = require('path')
-    , AWS = require('aws-sdk');
+    , path = require('path');
 
 var app = express();
 
-var s3 = new AWS.S3();
+
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -30,19 +29,8 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.get('/users', user.list);
-
-var awsConfig;
+app.put('/registration/:platform', registration.register)
 
 http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
-    AWS.config.loadFromPath('./aws-credentials.config');
-    fs.readFile('./aws-config.json', 'utf8', function (err, data) {
-        if (err) {
-            console.log('Error: ' + err);
-            return;
-        }
-
-        awsConfig = JSON.parse(data);
-    });
 });
