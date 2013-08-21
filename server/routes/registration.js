@@ -9,6 +9,8 @@ exports.register = function (req, res) {
     var platformApplicationArn;
     if (req.params.platform == 'gcm') {
         platformApplicationArn = aws.config.gcmApplicationArn;
+    } else if (req.params.platform == 'apns') {
+        platformApplicationArn = aws.config.apnsApplicationArn;
     }
 
     if (platformApplicationArn) {
